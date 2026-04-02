@@ -1,0 +1,118 @@
+name: Bug / Defect
+description: Report a defect in hardware, firmware, mechanics, integration, or documentation.
+title: "[BUG] "
+labels:
+  - "type: bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for defects, regressions, and unintended behavior.
+        Include enough detail to reproduce the issue or isolate the failing condition.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical - safety risk or hardware damage
+        - High - major function broken
+        - Medium - degraded behavior / workaround exists
+        - Low - minor issue / cosmetic / documentation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Affected subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - Documentation
+        - System-wide
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Affected version / revision
+      placeholder: Firmware v0.3.2, PCB rev A, CAD rev 17, prototype 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Defect summary
+      placeholder: Blade motor sometimes continues spinning for ~2 s after tip detection.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: The blade motor should be disabled immediately once a tip-over condition is detected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Describe what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Power on prototype
+        2. Start mowing mode
+        3. Tilt chassis past threshold
+        4. Observe motor current and stop time
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Test environment / conditions
+      placeholder: Battery SoC, terrain, temperature, firmware settings, attached sensors, charging state.
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Logs, images, oscilloscope captures, commit hashes, videos, crash dumps, etc.
+      placeholder: "Log excerpt...\nPhoto/video...\nRelated commit..."
+
+  - type: input
+    id: related_items
+    attributes:
+      label: Related requirement / test / change
+      placeholder: "#12, #33, SYS-REQ-012"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmation
+      options:
+        - label: I included enough detail to reproduce or analyze the defect.
+          required: true
+        - label: I stated the expected and actual behavior.
+          required: true

@@ -1,0 +1,119 @@
+name: Change Request
+description: Propose a controlled change to requirements, design, architecture, scope, or baseline.
+title: "[CR] "
+labels:
+  - "type: change-request"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when an approved baseline, requirement, architecture decision, or design should change.
+        Examples: change battery chemistry, add obstacle sensor redundancy, alter IP target, or switch communication architecture.
+
+  - type: input
+    id: affected_item
+    attributes:
+      label: Affected baseline item(s)
+      description: Link the requirement, design, task, component, or decision being changed.
+      placeholder: "#12, SYS-REQ-012, ADR-003"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change_type
+    attributes:
+      label: Change type
+      options:
+        - Requirement change
+        - Architecture change
+        - Mechanical design change
+        - Electrical / PCB change
+        - Firmware / software change
+        - Test strategy change
+        - Scope change
+        - Supplier / component change
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Primary subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_state
+    attributes:
+      label: Current baseline / current state
+      placeholder: The current design uses an IR ground-distance sensor mounted at the front skid plate.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: Proposed change
+      placeholder: Replace the single IR sensor with dual protected sensors and add plausibility checking in firmware.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for change
+      placeholder: Field tests showed false triggers in wet grass and poor robustness against dirt buildup.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact assessment
+      description: Consider performance, safety, schedule, BOM, manufacturability, verification, and documentation.
+      placeholder: |
+        - Cost impact:
+        - Schedule impact:
+        - Safety impact:
+        - Verification impact:
+        - Documentation impact:
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Alternatives considered
+      placeholder: Keep current design and add cleaning flap; switch to ultrasonic; fuse IMU + IR; etc.
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria for approving this change
+      placeholder: Change is approved once updated requirement, implementation task, and verification plan are created.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Change control check
+      options:
+        - label: I identified the affected baseline item(s).
+          required: true
+        - label: I described the proposed change and the reason for it.
+          required: true
+        - label: I considered the main impacts.
+          required: true

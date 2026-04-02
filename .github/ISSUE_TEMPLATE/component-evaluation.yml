@@ -1,0 +1,131 @@
+name: Component Evaluation
+description: Evaluate and down-select a part, sensor, module, actuator, battery, or material.
+title: "[COMPONENT] "
+labels:
+  - "type: component-evaluation"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to compare real candidate parts before committing to sourcing or design-in.
+        Good examples: blade motor, IMU, MCU, IR sensor, battery cell, charger IC, LED driver, enclosure seal, or SD card.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Component category
+      options:
+        - Blade / cutting element
+        - Motor / gearbox
+        - Battery cell / pack
+        - Charging / PMIC
+        - Solar cell / charger
+        - Microcontroller / compute module
+        - Sensor
+        - Motor driver / power electronics
+        - Storage / logging
+        - Connector / cabling
+        - Mechanical hardware / material
+        - Sealing / enclosure
+        - Lighting / HMI
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Target subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: textarea
+    id: need
+    attributes:
+      label: Need / use case
+      placeholder: Need a low-power IMU with reliable tilt detection, shock survivability, and good library support for the main MCU.
+    validations:
+      required: true
+
+  - type: textarea
+    id: candidates
+    attributes:
+      label: Candidate parts
+      description: List manufacturer, part number, source, and rough cost.
+      placeholder: |
+        - Vendor / Part A / cost / link
+        - Vendor / Part B / cost / link
+        - Vendor / Part C / cost / link
+    validations:
+      required: true
+
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Evaluation criteria
+      placeholder: Performance, efficiency, torque, noise, ingress resistance, temperature range, availability, package size, software support, cost.
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Evaluation method / setup
+      placeholder: Describe how you will compare the candidates.
+    validations:
+      required: true
+
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Comparison summary
+      description: Summarize findings, ideally in a small markdown table.
+      placeholder: |
+        | Candidate | Pros | Cons | Result |
+        |---|---|---|---|
+        | Part A | ... | ... | ... |
+        | Part B | ... | ... | ... |
+
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Recommended part and rationale
+      placeholder: Select Part B because it meets torque and runtime targets with acceptable thermal margin and cost.
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks / open questions
+      placeholder: Supply risk, lifetime uncertainty, mounting concerns, EMC risk, calibration burden.
+
+  - type: input
+    id: followup
+    attributes:
+      label: Linked follow-up issue(s)
+      placeholder: "#61, #62"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Evaluation check
+      options:
+        - label: At least two realistic candidates are listed.
+          required: true
+        - label: The decision criteria are stated.
+          required: true
+        - label: The recommendation is justified.
+          required: true

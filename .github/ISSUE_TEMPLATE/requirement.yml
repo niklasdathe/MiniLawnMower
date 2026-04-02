@@ -1,0 +1,148 @@
+name: Requirement
+description: Capture a product, system, subsystem, or interface requirement.
+title: "[REQ] "
+labels:
+  - "type: requirement"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for requirements that the mini lawnmower / mower robot must satisfy.
+        Write the requirement so it can later be verified by inspection, analysis, test, or demonstration.
+
+  - type: dropdown
+    id: requirement_level
+    attributes:
+      label: Requirement level
+      description: Choose the level that best fits this requirement.
+      options:
+        - System
+        - Subsystem
+        - Interface
+        - Safety
+        - Regulatory
+        - Manufacturing
+        - Service / Maintenance
+    validations:
+      required: true
+
+  - type: input
+    id: requirement_id
+    attributes:
+      label: Requirement ID
+      description: Optional project-specific ID such as SYS-REQ-012.
+      placeholder: SYS-REQ-012
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Primary subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Main discipline
+      options:
+        - Mechanical
+        - Electrical
+        - Embedded firmware
+        - Controls
+        - Test
+        - Systems engineering
+        - Manufacturing
+        - Multi-disciplinary
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Must have
+        - Should have
+        - Could have
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirement_statement
+    attributes:
+      label: Requirement statement
+      description: Write one clear shall-statement.
+      placeholder: The mower shall detect a tip-over condition and stop the cutting motor within X ms.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale / source
+      description: Why is this needed? Include user need, safety reason, design driver, or source.
+      placeholder: Derived from user safety goal, product vision, and IP67 outdoor operation target.
+    validations:
+      required: true
+
+  - type: textarea
+    id: fit_criterion
+    attributes:
+      label: Verification / fit criterion
+      description: State how success will be judged.
+      placeholder: Verified by controlled tip test. Pass if motor PWM is disabled and blade drive current falls below X A within Y ms.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: verification_method
+    attributes:
+      label: Planned verification method
+      options:
+        - Test
+        - Analysis
+        - Inspection
+        - Demonstration
+        - Combination
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and assumptions
+      description: Environmental, cost, weight, energy, size, standards, architecture assumptions, etc.
+      placeholder: Outdoor use, battery powered, target IP67, low standby power, public repo documentation.
+
+  - type: textarea
+    id: related_items
+    attributes:
+      label: Related requirements / issues / discussions
+      description: Link parent requirements, related features, risks, standards, or prior decisions.
+      placeholder: "Parent: #12\nRelated: #34, #56"
+
+  - type: checkboxes
+    id: quality_check
+    attributes:
+      label: Quality check
+      options:
+        - label: I wrote the requirement as a single clear statement.
+          required: true
+        - label: I included a rationale or source.
+          required: true
+        - label: I included a measurable or otherwise verifiable fit criterion.
+          required: true

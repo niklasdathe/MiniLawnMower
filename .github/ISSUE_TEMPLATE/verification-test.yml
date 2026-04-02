@@ -1,0 +1,134 @@
+name: Verification Test
+description: Define and record a verification activity for a requirement, feature, or fix.
+title: "[TEST] "
+labels:
+  - "type: verification"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to plan or document a verification test.
+        Each test should trace back to a requirement, implementation task, defect, or change request.
+
+  - type: input
+    id: verifies
+    attributes:
+      label: Verifies requirement(s) / issue(s)
+      description: Link the requirement or issue this test verifies.
+      placeholder: "#12, SYS-REQ-012"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: test_level
+    attributes:
+      label: Test level
+      options:
+        - Unit
+        - Bench / component
+        - Subsystem integration
+        - System
+        - Field / outdoor
+        - Environmental
+        - Safety
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Primary subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Test objective
+      placeholder: Verify that the mower detects a tip event and disables the cutting motor within the required response time.
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Test setup and equipment
+      placeholder: |
+        - Prototype revision
+        - Battery state
+        - Sensor configuration
+        - Instruments / logger / test rig
+    validations:
+      required: true
+
+  - type: textarea
+    id: procedure
+    attributes:
+      label: Procedure
+      placeholder: |
+        1. Power up the DUT
+        2. Start blade motor at nominal operating speed
+        3. Apply controlled tilt
+        4. Record IMU flag, PWM disable, and motor current
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_result
+    attributes:
+      label: Expected result / pass criteria
+      placeholder: PWM disable asserted within X ms, motor current decays below Y A within Z ms, event logged to SD card.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: Current result status
+      options:
+        - Planned
+        - In progress
+        - Passed
+        - Failed
+        - Blocked
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / data / artifacts
+      description: Link logs, plots, commits, videos, or uploaded files.
+      placeholder: "Logs: ...\nCommit: ...\nPhoto/video: ..."
+
+  - type: textarea
+    id: observations
+    attributes:
+      label: Observations and follow-up actions
+      placeholder: Unexpected vibration above 80% PWM; repeat with revised motor mount.
+
+  - type: checkboxes
+    id: traceability
+    attributes:
+      label: Traceability check
+      options:
+        - label: The item being verified is clearly linked.
+          required: true
+        - label: The setup and steps are detailed enough to repeat.
+          required: true
+        - label: The pass criteria are explicit.
+          required: true

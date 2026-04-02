@@ -1,0 +1,136 @@
+name: Implementation Task
+description: Plan and track work needed to implement a requirement, feature, fix, or change.
+title: "[TASK] "
+labels:
+  - "type: implementation"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for actionable work items.
+        A task should result in a concrete deliverable such as code, CAD, wiring, documentation, or a test rig update.
+
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task type
+      options:
+        - Feature implementation
+        - Hardware build
+        - PCB / electrical integration
+        - Firmware implementation
+        - Mechanical design
+        - Test infrastructure
+        - Documentation
+        - Refactor / cleanup
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Primary subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: input
+    id: linked_requirement
+    attributes:
+      label: Linked requirement(s)
+      description: Reference requirement issues or IDs.
+      placeholder: "#12, SYS-REQ-012"
+
+  - type: input
+    id: linked_change_or_bug
+    attributes:
+      label: Linked change request / bug / experiment
+      placeholder: "#54"
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: State what this task will accomplish.
+      placeholder: Implement wheel-speed closed loop control on the drive MCU and expose tuning parameters over serial or MQTT.
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Expected deliverables
+      description: Describe the concrete outputs.
+      placeholder: |
+        - Firmware commit
+        - Updated wiring diagram
+        - Calibration notes
+        - Demo video / logs
+    validations:
+      required: true
+
+  - type: textarea
+    id: work_breakdown
+    attributes:
+      label: Work breakdown
+      description: Break the task into major steps.
+      placeholder: |
+        1. Add motor driver abstraction
+        2. Implement encoder readout
+        3. Add PI controller
+        4. Bench test with current limiting
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / blockers
+      placeholder: Waiting for motor driver board, depends on #41, blocked by enclosure dimensions.
+
+  - type: textarea
+    id: definition_of_done
+    attributes:
+      label: Definition of done
+      description: State the completion criteria.
+      placeholder: Merged branch, updated docs, and successful bench test recorded in linked verification issue.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated effort
+      options:
+        - XS (< 1 h)
+        - S (1-4 h)
+        - M (0.5-1 day)
+        - L (1-3 days)
+        - XL (> 3 days)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: readiness
+    attributes:
+      label: Readiness check
+      options:
+        - label: Scope is specific enough to implement.
+          required: true
+        - label: Upstream requirement, bug, or decision context is linked.
+          required: true
+        - label: Completion criteria are stated.
+          required: true

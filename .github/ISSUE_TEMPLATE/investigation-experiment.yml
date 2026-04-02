@@ -1,0 +1,120 @@
+name: Investigation / Experiment
+description: Capture research, prototype trials, experiments, and decision-driving investigations.
+title: "[INVESTIGATION] "
+labels:
+  - "type: investigation"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for open-ended technical investigations.
+        Examples: motor selection, connectivity tests, control tuning experiments, sensor evaluation, battery profiling, or waterproofing trials.
+
+  - type: dropdown
+    id: investigation_type
+    attributes:
+      label: Investigation type
+      options:
+        - Research
+        - Comparison test
+        - Feasibility study
+        - Prototype experiment
+        - Characterization
+        - Algorithm tuning
+        - Root-cause analysis
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Primary subsystem
+      options:
+        - Cutting system
+        - Drive system
+        - Power / battery / charging
+        - Solar charging
+        - Control electronics / PCB
+        - Firmware / control algorithms
+        - Sensors / perception
+        - Logging / storage
+        - Enclosure / sealing / IP67
+        - Lighting / HMI
+        - Mechanical structure
+        - Safety
+        - System-wide
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question / decision to support
+      placeholder: Which drive motor and gearbox combination provides enough torque for grass cutting terrain while staying within battery and thermal limits?
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis or expectation
+      placeholder: A lower-KV geared DC motor will improve low-speed traction efficiency compared with the current candidate.
+
+  - type: textarea
+    id: options_under_test
+    attributes:
+      label: Options / variables under test
+      description: Components, parameters, algorithms, or configurations being compared.
+      placeholder: |
+        - Motor A + gearbox 30:1
+        - Motor B + gearbox 50:1
+        - PID vs PI tuning
+        - Wi-Fi vs LoRa telemetry
+    validations:
+      required: true
+
+  - type: textarea
+    id: method
+    attributes:
+      label: Method / setup
+      placeholder: Describe the setup, controls, measurements, and how you will compare the options.
+    validations:
+      required: true
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metrics and decision criteria
+      placeholder: Torque margin, current draw, runtime, temperature rise, packet loss, BOM cost, waterproofing performance.
+    validations:
+      required: true
+
+  - type: textarea
+    id: results
+    attributes:
+      label: Results / findings
+      placeholder: Summarize observations, data, and the current conclusion.
+
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Recommendation / next step
+      placeholder: Select Motor B for prototype rev B and open an implementation task for mounting and driver tuning.
+
+  - type: input
+    id: linked_followup
+    attributes:
+      label: Linked follow-up issues
+      placeholder: "#44, #45"
+
+  - type: checkboxes
+    id: completeness
+    attributes:
+      label: Completeness check
+      options:
+        - label: The investigation question is clear.
+          required: true
+        - label: The comparison method or setup is documented.
+          required: true
+        - label: The decision criteria are stated.
+          required: true
