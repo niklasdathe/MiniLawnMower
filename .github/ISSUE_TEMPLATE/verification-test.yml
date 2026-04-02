@@ -1,5 +1,5 @@
 name: Verification Test
-description: Define and record a verification activity for a requirement, feature, or fix.
+description: Define or record a test that verifies a requirement or validates an implementation.
 title: "[TEST] "
 labels:
   - "type: verification"
@@ -7,51 +7,82 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form to plan or document a verification test.
-        Each test should trace back to a requirement, implementation task, defect, or change request.
+        Use this form for planned or executed tests.
+        Prefer one test issue per test objective.
 
-  - type: input
-    id: verifies
+  - type: dropdown
+    id: discipline
     attributes:
-      label: Verifies requirement(s) / issue(s)
-      description: Link the requirement or issue this test verifies.
-      placeholder: "#12, SYS-REQ-012"
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
+      options:
+        - Mechanical
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
+        - Multi-disciplinary
     validations:
       required: true
+
+  - type: dropdown
+    id: assembly
+    attributes:
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
+      options:
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
+        - Safety
+        - System-wide / cross-cutting
+    validations:
+      required: true
+
+  - type: input
+    id: parent_issue
+    attributes:
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
+
+  - type: textarea
+    id: related_work
+    attributes:
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
 
   - type: dropdown
     id: test_level
     attributes:
       label: Test level
       options:
-        - Unit
-        - Bench / component
-        - Subsystem integration
+        - Unit / bench
+        - Assembly / subsystem
+        - Integration
         - System
-        - Field / outdoor
-        - Environmental
+        - Environmental / durability
         - Safety
     validations:
       required: true
 
-  - type: dropdown
-    id: subsystem
+  - type: input
+    id: verifies
     attributes:
-      label: Primary subsystem
-      options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
-        - Safety
-        - System-wide
+      label: Requirement or issue verified
+      description: Link the requirement, change, or bug this test covers.
+      placeholder: '#123'
     validations:
       required: true
 
@@ -59,19 +90,15 @@ body:
     id: objective
     attributes:
       label: Test objective
-      placeholder: Verify that the mower detects a tip event and disables the cutting motor within the required response time.
+      placeholder: Verify that the mower detects lift-off from the ground and disables cutting within the required response time.
     validations:
       required: true
 
   - type: textarea
     id: setup
     attributes:
-      label: Test setup and equipment
-      placeholder: |
-        - Prototype revision
-        - Battery state
-        - Sensor configuration
-        - Instruments / logger / test rig
+      label: Setup / instrumentation
+      placeholder: Bench supply, current probe, IMU log stream, test jig, firmware version, environmental conditions.
     validations:
       required: true
 
@@ -79,56 +106,34 @@ body:
     id: procedure
     attributes:
       label: Procedure
-      placeholder: |
-        1. Power up the DUT
-        2. Start blade motor at nominal operating speed
-        3. Apply controlled tilt
-        4. Record IMU flag, PWM disable, and motor current
+      placeholder: |-
+        1. Arm system
+        2. Spin up cutting motor
+        3. Trigger lift condition
+        4. Record stop time and current decay.
     validations:
       required: true
 
   - type: textarea
-    id: expected_result
+    id: pass_fail
     attributes:
-      label: Expected result / pass criteria
-      placeholder: PWM disable asserted within X ms, motor current decays below Y A within Z ms, event logged to SD card.
-    validations:
-      required: true
-
-  - type: dropdown
-    id: result
-    attributes:
-      label: Current result status
-      options:
-        - Planned
-        - In progress
-        - Passed
-        - Failed
-        - Blocked
+      label: Pass / fail criteria
+      placeholder: Pass if stop time <= X ms and no restart occurs without manual reset.
     validations:
       required: true
 
   - type: textarea
-    id: evidence
+    id: results
     attributes:
-      label: Evidence / data / artifacts
-      description: Link logs, plots, commits, videos, or uploaded files.
-      placeholder: "Logs: ...\nCommit: ...\nPhoto/video: ..."
-
-  - type: textarea
-    id: observations
-    attributes:
-      label: Observations and follow-up actions
-      placeholder: Unexpected vibration above 80% PWM; repeat with revised motor mount.
+      label: Results / evidence
+      placeholder: Attach logs, plots, photos, video links, and measured values.
 
   - type: checkboxes
-    id: traceability
+    id: evidence_check
     attributes:
-      label: Traceability check
+      label: Evidence check
       options:
-        - label: The item being verified is clearly linked.
+        - label: I linked the requirement or work item being verified.
           required: true
-        - label: The setup and steps are detailed enough to repeat.
-          required: true
-        - label: The pass criteria are explicit.
+        - label: I defined objective pass/fail criteria.
           required: true

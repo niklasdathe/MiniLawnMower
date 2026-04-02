@@ -1,5 +1,5 @@
 name: Requirement
-description: Capture a product, system, subsystem, or interface requirement.
+description: Capture a verifiable product, subsystem, or interface requirement.
 title: "[REQ] "
 labels:
   - "type: requirement"
@@ -7,68 +7,75 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form for requirements that the mini lawnmower / mower robot must satisfy.
-        Write the requirement so it can later be verified by inspection, analysis, test, or demonstration.
+        Use this form for requirements. Keep the requirement independent from the implementation.
+        The same assembly can later have separate mechanical, electronics, and firmware tasks linked back to this issue.
 
   - type: dropdown
     id: requirement_level
     attributes:
       label: Requirement level
-      description: Choose the level that best fits this requirement.
       options:
-        - System
-        - Subsystem
+        - Product / system
+        - Assembly / subsystem
         - Interface
         - Safety
-        - Regulatory
-        - Manufacturing
-        - Service / Maintenance
-    validations:
-      required: true
-
-  - type: input
-    id: requirement_id
-    attributes:
-      label: Requirement ID
-      description: Optional project-specific ID such as SYS-REQ-012.
-      placeholder: SYS-REQ-012
-
-  - type: dropdown
-    id: subsystem
-    attributes:
-      label: Primary subsystem
-      options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
-        - Safety
-        - System-wide
+        - Regulatory / environmental
+        - Manufacturing / service
     validations:
       required: true
 
   - type: dropdown
     id: discipline
     attributes:
-      label: Main discipline
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
       options:
         - Mechanical
-        - Electrical
-        - Embedded firmware
-        - Controls
-        - Test
-        - Systems engineering
-        - Manufacturing
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
         - Multi-disciplinary
     validations:
       required: true
+
+  - type: dropdown
+    id: assembly
+    attributes:
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
+      options:
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
+        - Safety
+        - System-wide / cross-cutting
+    validations:
+      required: true
+
+  - type: input
+    id: parent_issue
+    attributes:
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
+
+  - type: textarea
+    id: related_work
+    attributes:
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
 
   - type: dropdown
     id: priority
@@ -81,12 +88,19 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: requirement_id
+    attributes:
+      label: Requirement ID
+      description: Optional project-specific ID.
+      placeholder: REQ-CUT-001
+
   - type: textarea
     id: requirement_statement
     attributes:
       label: Requirement statement
       description: Write one clear shall-statement.
-      placeholder: The mower shall detect a tip-over condition and stop the cutting motor within X ms.
+      placeholder: The mower shall stop the cutting function within X ms after a tip-over event is detected.
     validations:
       required: true
 
@@ -94,17 +108,17 @@ body:
     id: rationale
     attributes:
       label: Rationale / source
-      description: Why is this needed? Include user need, safety reason, design driver, or source.
-      placeholder: Derived from user safety goal, product vision, and IP67 outdoor operation target.
+      description: Why is this requirement needed?
+      placeholder: Safety objective, user need, standard, design decision, benchmark result, etc.
     validations:
       required: true
 
   - type: textarea
-    id: fit_criterion
+    id: verification_criterion
     attributes:
-      label: Verification / fit criterion
-      description: State how success will be judged.
-      placeholder: Verified by controlled tip test. Pass if motor PWM is disabled and blade drive current falls below X A within Y ms.
+      label: Verification criterion
+      description: How will success be judged?
+      placeholder: Pass if the cutting motor command is disabled and current decays below X A within Y ms during test setup Z.
     validations:
       required: true
 
@@ -125,15 +139,7 @@ body:
     id: constraints
     attributes:
       label: Constraints and assumptions
-      description: Environmental, cost, weight, energy, size, standards, architecture assumptions, etc.
-      placeholder: Outdoor use, battery powered, target IP67, low standby power, public repo documentation.
-
-  - type: textarea
-    id: related_items
-    attributes:
-      label: Related requirements / issues / discussions
-      description: Link parent requirements, related features, risks, standards, or prior decisions.
-      placeholder: "Parent: #12\nRelated: #34, #56"
+      placeholder: Weight, energy budget, size, IP rating, cost target, architecture assumptions, manufacturing constraints.
 
   - type: checkboxes
     id: quality_check
@@ -144,5 +150,5 @@ body:
           required: true
         - label: I included a rationale or source.
           required: true
-        - label: I included a measurable or otherwise verifiable fit criterion.
+        - label: I included a verifiable criterion.
           required: true

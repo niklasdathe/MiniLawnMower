@@ -1,120 +1,114 @@
 name: Investigation / Experiment
-description: Capture research, prototype trials, experiments, and decision-driving investigations.
-title: "[INVESTIGATION] "
+description: Track an experiment, research activity, or engineering investigation.
+title: "[INV] "
 labels:
   - "type: investigation"
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form for open-ended technical investigations.
-        Examples: motor selection, connectivity tests, control tuning experiments, sensor evaluation, battery profiling, or waterproofing trials.
+        Use this form for exploratory work where the outcome is not yet known.
+        This is ideal for control tuning, sensor trials, efficiency studies, and trade-off experiments.
 
   - type: dropdown
-    id: investigation_type
+    id: discipline
     attributes:
-      label: Investigation type
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
       options:
-        - Research
-        - Comparison test
-        - Feasibility study
-        - Prototype experiment
-        - Characterization
-        - Algorithm tuning
-        - Root-cause analysis
+        - Mechanical
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
+        - Multi-disciplinary
     validations:
       required: true
 
   - type: dropdown
-    id: subsystem
+    id: assembly
     attributes:
-      label: Primary subsystem
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
       options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
         - Safety
-        - System-wide
+        - System-wide / cross-cutting
+    validations:
+      required: true
+
+  - type: input
+    id: parent_issue
+    attributes:
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
+
+  - type: textarea
+    id: related_work
+    attributes:
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
+
+  - type: dropdown
+    id: investigation_kind
+    attributes:
+      label: Investigation kind
+      options:
+        - Research / literature scan
+        - Bench experiment
+        - Field experiment
+        - Algorithm comparison
+        - Architecture trade-off
+        - Failure analysis
     validations:
       required: true
 
   - type: textarea
     id: question
     attributes:
-      label: Question / decision to support
-      placeholder: Which drive motor and gearbox combination provides enough torque for grass cutting terrain while staying within battery and thermal limits?
-    validations:
-      required: true
-
-  - type: textarea
-    id: hypothesis
-    attributes:
-      label: Hypothesis or expectation
-      placeholder: A lower-KV geared DC motor will improve low-speed traction efficiency compared with the current candidate.
-
-  - type: textarea
-    id: options_under_test
-    attributes:
-      label: Options / variables under test
-      description: Components, parameters, algorithms, or configurations being compared.
-      placeholder: |
-        - Motor A + gearbox 30:1
-        - Motor B + gearbox 50:1
-        - PID vs PI tuning
-        - Wi-Fi vs LoRa telemetry
+      label: Question / hypothesis
+      placeholder: Which blade motor control strategy gives the best startup behavior for the available battery and driver hardware?
     validations:
       required: true
 
   - type: textarea
     id: method
     attributes:
-      label: Method / setup
-      placeholder: Describe the setup, controls, measurements, and how you will compare the options.
+      label: Method
+      placeholder: Compare PWM ramp profiles A/B/C, measure inrush current, spin-up time, heating, and grass-cut quality proxy.
     validations:
       required: true
 
   - type: textarea
-    id: metrics
+    id: evaluation
     attributes:
-      label: Metrics and decision criteria
-      placeholder: Torque margin, current draw, runtime, temperature rise, packet loss, BOM cost, waterproofing performance.
+      label: Evaluation criteria
+      placeholder: Peak current, efficiency, stability, implementation complexity, component stress.
     validations:
       required: true
 
   - type: textarea
-    id: results
+    id: findings
     attributes:
-      label: Results / findings
-      placeholder: Summarize observations, data, and the current conclusion.
+      label: Findings / conclusion
+      placeholder: Summarize what was learned and what should happen next.
 
   - type: textarea
-    id: recommendation
+    id: follow_up
     attributes:
-      label: Recommendation / next step
-      placeholder: Select Motor B for prototype rev B and open an implementation task for mounting and driver tuning.
-
-  - type: input
-    id: linked_followup
-    attributes:
-      label: Linked follow-up issues
-      placeholder: "#44, #45"
-
-  - type: checkboxes
-    id: completeness
-    attributes:
-      label: Completeness check
-      options:
-        - label: The investigation question is clear.
-          required: true
-        - label: The comparison method or setup is documented.
-          required: true
-        - label: The decision criteria are stated.
-          required: true
+      label: Follow-up actions
+      placeholder: Create implementation task, update requirement, open change request, or close with no action.

@@ -1,62 +1,88 @@
 name: Bug / Defect
-description: Report a defect in hardware, firmware, mechanics, integration, or documentation.
+description: Report a defect in mechanics, electronics, firmware, integration, documentation, or tests.
 title: "[BUG] "
 labels:
-  - "type: bug"
+  - "type: defect"
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form for defects, regressions, and unintended behavior.
-        Include enough detail to reproduce the issue or isolate the failing condition.
+        Use this form for an observed defect against expected behavior.
+        The defect can be physical, electrical, logical, or documentation-related.
 
   - type: dropdown
-    id: severity
+    id: discipline
     attributes:
-      label: Severity
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
       options:
-        - Critical - safety risk or hardware damage
-        - High - major function broken
-        - Medium - degraded behavior / workaround exists
-        - Low - minor issue / cosmetic / documentation
+        - Mechanical
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
+        - Multi-disciplinary
     validations:
       required: true
 
   - type: dropdown
-    id: subsystem
+    id: assembly
     attributes:
-      label: Affected subsystem
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
       options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
         - Safety
-        - Documentation
-        - System-wide
+        - System-wide / cross-cutting
     validations:
       required: true
 
   - type: input
-    id: version
+    id: parent_issue
     attributes:
-      label: Affected version / revision
-      placeholder: Firmware v0.3.2, PCB rev A, CAD rev 17, prototype 2
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
+
+  - type: textarea
+    id: related_work
+    attributes:
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
+
+  - type: dropdown
+    id: defect_type
+    attributes:
+      label: Defect type
+      options:
+        - Functional failure
+        - Performance shortfall
+        - Safety issue
+        - Intermittent behavior
+        - Manufacturing / assembly defect
+        - Documentation defect
+        - Test artifact / tooling issue
     validations:
       required: true
 
   - type: textarea
-    id: summary
+    id: observed
     attributes:
-      label: Defect summary
-      placeholder: Blade motor sometimes continues spinning for ~2 s after tip detection.
+      label: Observed behavior
+      placeholder: Cutting motor restarts unexpectedly after transient undervoltage.
     validations:
       required: true
 
@@ -64,55 +90,41 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      placeholder: The blade motor should be disabled immediately once a tip-over condition is detected.
+      placeholder: System should remain latched off until explicit reset.
     validations:
       required: true
 
   - type: textarea
-    id: actual
+    id: reproduction
     attributes:
-      label: Actual behavior
-      placeholder: Describe what happened instead.
+      label: Reproduction steps
+      placeholder: |-
+        1. Run profile X
+        2. Load battery to Y V
+        3. Trigger event Z.
     validations:
       required: true
 
-  - type: textarea
-    id: steps
+  - type: dropdown
+    id: severity
     attributes:
-      label: Steps to reproduce
-      placeholder: |
-        1. Power on prototype
-        2. Start mowing mode
-        3. Tilt chassis past threshold
-        4. Observe motor current and stop time
+      label: Severity
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
     validations:
       required: true
-
-  - type: textarea
-    id: environment
-    attributes:
-      label: Test environment / conditions
-      placeholder: Battery SoC, terrain, temperature, firmware settings, attached sensors, charging state.
 
   - type: textarea
     id: evidence
     attributes:
       label: Evidence
-      description: Logs, images, oscilloscope captures, commit hashes, videos, crash dumps, etc.
-      placeholder: "Log excerpt...\nPhoto/video...\nRelated commit..."
+      placeholder: Logs, pictures, oscilloscope captures, test issue, commit, hardware revision.
 
   - type: input
-    id: related_items
+    id: affects_requirement
     attributes:
-      label: Related requirement / test / change
-      placeholder: "#12, #33, SYS-REQ-012"
-
-  - type: checkboxes
-    id: checks
-    attributes:
-      label: Confirmation
-      options:
-        - label: I included enough detail to reproduce or analyze the defect.
-          required: true
-        - label: I stated the expected and actual behavior.
-          required: true
+      label: Affected requirement
+      placeholder: '#123'

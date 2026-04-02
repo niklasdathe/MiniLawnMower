@@ -1,5 +1,5 @@
 name: Implementation Task
-description: Plan and track work needed to implement a requirement, feature, fix, or change.
+description: Plan a concrete implementation step for mechanics, electronics, firmware, or integration.
 title: "[TASK] "
 labels:
   - "type: implementation"
@@ -7,91 +7,99 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form for actionable work items.
-        A task should result in a concrete deliverable such as code, CAD, wiring, documentation, or a test rig update.
+        Use this form for executable work.
+        Keep one task focused on one discipline and one assembly whenever possible.
 
   - type: dropdown
-    id: task_type
+    id: discipline
     attributes:
-      label: Task type
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
       options:
-        - Feature implementation
-        - Hardware build
-        - PCB / electrical integration
-        - Firmware implementation
-        - Mechanical design
-        - Test infrastructure
-        - Documentation
-        - Refactor / cleanup
+        - Mechanical
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
+        - Multi-disciplinary
     validations:
       required: true
 
   - type: dropdown
-    id: subsystem
+    id: assembly
     attributes:
-      label: Primary subsystem
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
       options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
         - Safety
-        - System-wide
+        - System-wide / cross-cutting
     validations:
       required: true
 
   - type: input
-    id: linked_requirement
+    id: parent_issue
     attributes:
-      label: Linked requirement(s)
-      description: Reference requirement issues or IDs.
-      placeholder: "#12, SYS-REQ-012"
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
 
-  - type: input
-    id: linked_change_or_bug
+  - type: textarea
+    id: related_work
     attributes:
-      label: Linked change request / bug / experiment
-      placeholder: "#54"
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
+
+  - type: dropdown
+    id: task_kind
+    attributes:
+      label: Task kind
+      options:
+        - Design
+        - Calculation / sizing
+        - CAD / schematic / PCB
+        - Firmware implementation
+        - Integration / bring-up
+        - Documentation
+        - Review / refactor
+    validations:
+      required: true
 
   - type: textarea
     id: objective
     attributes:
       label: Objective
-      description: State what this task will accomplish.
-      placeholder: Implement wheel-speed closed loop control on the drive MCU and expose tuning parameters over serial or MQTT.
+      placeholder: Implement blade motor soft-start in motor-control firmware and expose status over telemetry.
     validations:
       required: true
 
   - type: textarea
-    id: deliverables
+    id: scope
     attributes:
-      label: Expected deliverables
-      description: Describe the concrete outputs.
-      placeholder: |
-        - Firmware commit
-        - Updated wiring diagram
-        - Calibration notes
-        - Demo video / logs
+      label: Scope and deliverable
+      description: What exactly will be produced or changed?
+      placeholder: Updated control code, test log, wiring diagram, and current-limit parameter table.
     validations:
       required: true
 
   - type: textarea
-    id: work_breakdown
+    id: acceptance
     attributes:
-      label: Work breakdown
-      description: Break the task into major steps.
-      placeholder: |
-        1. Add motor driver abstraction
-        2. Implement encoder readout
-        3. Add PI controller
-        4. Bench test with current limiting
+      label: Acceptance criteria
+      placeholder: Code merged, startup current captured, no watchdog resets, and test bench results attached.
     validations:
       required: true
 
@@ -99,38 +107,14 @@ body:
     id: dependencies
     attributes:
       label: Dependencies / blockers
-      placeholder: Waiting for motor driver board, depends on #41, blocked by enclosure dimensions.
-
-  - type: textarea
-    id: definition_of_done
-    attributes:
-      label: Definition of done
-      description: State the completion criteria.
-      placeholder: Merged branch, updated docs, and successful bench test recorded in linked verification issue.
-    validations:
-      required: true
-
-  - type: dropdown
-    id: effort
-    attributes:
-      label: Estimated effort
-      options:
-        - XS (< 1 h)
-        - S (1-4 h)
-        - M (0.5-1 day)
-        - L (1-3 days)
-        - XL (> 3 days)
-    validations:
-      required: true
+      placeholder: Needs component decision from #54 and system requirement #12.
 
   - type: checkboxes
-    id: readiness
+    id: completion_check
     attributes:
-      label: Readiness check
+      label: Planning check
       options:
-        - label: Scope is specific enough to implement.
+        - label: This task is small enough to complete and review.
           required: true
-        - label: Upstream requirement, bug, or decision context is linked.
-          required: true
-        - label: Completion criteria are stated.
+        - label: I linked the driving requirement, bug, or experiment where relevant.
           required: true

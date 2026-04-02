@@ -1,131 +1,120 @@
 name: Component Evaluation
-description: Evaluate and down-select a part, sensor, module, actuator, battery, or material.
-title: "[COMPONENT] "
+description: Compare candidate parts, modules, or materials before making a selection.
+title: "[EVAL] "
 labels:
   - "type: component-evaluation"
 body:
   - type: markdown
     attributes:
       value: |
-        Use this form to compare real candidate parts before committing to sourcing or design-in.
-        Good examples: blade motor, IMU, MCU, IR sensor, battery cell, charger IC, LED driver, enclosure seal, or SD card.
+        Use this form when selecting a component, material, sensor, motor, battery, driver, connector, sealing concept, or module.
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Discipline
+      description: Which engineering domain mainly owns this issue?
+      options:
+        - Mechanical
+        - Electronics / power
+        - Firmware / software
+        - Test / validation
+        - Systems / integration
+        - Manufacturing / documentation
+        - Multi-disciplinary
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assembly
+    attributes:
+      label: Assembly / module
+      description: Which physical or logical assembly is primarily affected?
+      options:
+        - Cutting module
+        - Drive module
+        - Energy module
+        - Charging / solar module
+        - Control module
+        - Sensor module
+        - Chassis / enclosure
+        - HMI / lighting
+        - Logging / telemetry
+        - Safety
+        - System-wide / cross-cutting
+    validations:
+      required: true
+
+  - type: input
+    id: parent_issue
+    attributes:
+      label: Parent issue
+      description: Link the higher-level requirement, feature, or epic if one exists.
+      placeholder: '#123'
+
+  - type: textarea
+    id: related_work
+    attributes:
+      label: Related issues / PRs / discussions
+      description: Link any connected work items.
+      placeholder: |-
+        Related: #45
+        Blocks: #67
+        Decision record: #89
 
   - type: dropdown
     id: category
     attributes:
-      label: Component category
+      label: Evaluation category
       options:
-        - Blade / cutting element
-        - Motor / gearbox
-        - Battery cell / pack
-        - Charging / PMIC
-        - Solar cell / charger
-        - Microcontroller / compute module
+        - Actuator / motor
         - Sensor
-        - Motor driver / power electronics
-        - Storage / logging
-        - Connector / cabling
-        - Mechanical hardware / material
-        - Sealing / enclosure
-        - Lighting / HMI
+        - Battery / energy storage
+        - Power electronics
+        - MCU / compute
+        - PCB / connector / interconnect
+        - Mechanical part / material
+        - Enclosure / sealing element
+        - Storage / communication module
         - Other
     validations:
       required: true
 
-  - type: dropdown
-    id: subsystem
-    attributes:
-      label: Target subsystem
-      options:
-        - Cutting system
-        - Drive system
-        - Power / battery / charging
-        - Solar charging
-        - Control electronics / PCB
-        - Firmware / control algorithms
-        - Sensors / perception
-        - Logging / storage
-        - Enclosure / sealing / IP67
-        - Lighting / HMI
-        - Mechanical structure
-        - Safety
-        - System-wide
-    validations:
-      required: true
-
   - type: textarea
-    id: need
+    id: decision_needed
     attributes:
-      label: Need / use case
-      placeholder: Need a low-power IMU with reliable tilt detection, shock survivability, and good library support for the main MCU.
+      label: Decision needed
+      placeholder: Select blade motor driver architecture for prototype A.
     validations:
       required: true
 
   - type: textarea
     id: candidates
     attributes:
-      label: Candidate parts
-      description: List manufacturer, part number, source, and rough cost.
-      placeholder: |
-        - Vendor / Part A / cost / link
-        - Vendor / Part B / cost / link
-        - Vendor / Part C / cost / link
+      label: Candidates
+      placeholder: |-
+        Candidate A
+        Candidate B
+        Candidate C
     validations:
       required: true
 
   - type: textarea
     id: criteria
     attributes:
-      label: Evaluation criteria
-      placeholder: Performance, efficiency, torque, noise, ingress resistance, temperature range, availability, package size, software support, cost.
+      label: Comparison criteria
+      placeholder: Torque, current, efficiency, cost, availability, size, protection features, ease of control.
     validations:
       required: true
-
-  - type: textarea
-    id: setup
-    attributes:
-      label: Evaluation method / setup
-      placeholder: Describe how you will compare the candidates.
-    validations:
-      required: true
-
-  - type: textarea
-    id: comparison
-    attributes:
-      label: Comparison summary
-      description: Summarize findings, ideally in a small markdown table.
-      placeholder: |
-        | Candidate | Pros | Cons | Result |
-        |---|---|---|---|
-        | Part A | ... | ... | ... |
-        | Part B | ... | ... | ... |
 
   - type: textarea
     id: recommendation
     attributes:
-      label: Recommended part and rationale
-      placeholder: Select Part B because it meets torque and runtime targets with acceptable thermal margin and cost.
+      label: Recommendation / selected option
+      placeholder: Summarize the preferred option and why.
 
   - type: textarea
-    id: risks
+    id: procurement_next
     attributes:
-      label: Risks / open questions
-      placeholder: Supply risk, lifetime uncertainty, mounting concerns, EMC risk, calibration burden.
-
-  - type: input
-    id: followup
-    attributes:
-      label: Linked follow-up issue(s)
-      placeholder: "#61, #62"
-
-  - type: checkboxes
-    id: checks
-    attributes:
-      label: Evaluation check
-      options:
-        - label: At least two realistic candidates are listed.
-          required: true
-        - label: The decision criteria are stated.
-          required: true
-        - label: The recommendation is justified.
-          required: true
+      label: Next step
+      placeholder: Order samples, create test issue, update schematic, or defer decision.

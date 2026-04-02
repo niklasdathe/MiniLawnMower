@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Project documentation
-    url: https://github.com/niklasdathe
-    about: Check repository docs, README files, and decisions before opening a new issue.
+  - name: Project discussions
+    url: https://github.com/OWNER/REPO/discussions
+    about: Use discussions for open-ended brainstorming that is not yet an issue.
