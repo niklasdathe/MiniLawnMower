@@ -1,0 +1,107 @@
+name: Bug / Defect
+description: Report incorrect behavior in hardware, firmware, software, integration, or mechanics.
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for things that behave incorrectly relative to the intended design or requirement.
+        This includes hardware failures, firmware faults, unsafe behavior, wiring mistakes, mechanical interference, and integration problems.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-checks
+      options:
+        - label: I searched for an existing bug or duplicate issue.
+          required: true
+        - label: I included enough information to reproduce or diagnose the problem.
+          required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Subsystem
+      options:
+        - System
+        - Chassis
+        - Drive
+        - Cutting system
+        - Power / Battery
+        - Charging / Solar
+        - Control / Firmware
+        - Connectivity / Telemetry
+        - Sensors / Safety
+        - Manufacturing / Assembly
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Flash firmware commit abc123
+        2. Power system from 24 V battery
+        3. Command left motor step from 0 to 60 %
+        4. Observe reset after ~2 s
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and context
+      description: Include commit, PCB revision, CAD revision, firmware version, battery state, temperature, terrain, and test setup.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Add logs, measurements, oscilloscope captures, photos, videos, or error messages.
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact and suspected cause
+      description: State what this breaks and any suspected root cause if known.
+      render: markdown
+    validations:
+      required: false

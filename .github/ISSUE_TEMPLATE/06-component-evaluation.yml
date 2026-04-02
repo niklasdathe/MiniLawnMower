@@ -1,0 +1,116 @@
+name: Component Evaluation
+description: Compare candidate parts or suppliers before freezing a selection.
+title: "[EVAL] "
+labels: ["component-evaluation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form before locking a component or supplier.
+        Examples: drive motors, ESCs, batteries, BMS boards, IMUs, radios, motor drivers, charging modules, wheels, bearings, or enclosures.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-checks
+      options:
+        - label: I identified the driving requirements or constraints.
+          required: true
+        - label: I defined comparison criteria for the candidate parts.
+          required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Component category
+      options:
+        - Motor / Gearbox
+        - Motor driver / ESC
+        - Battery / Cell / Pack
+        - BMS / Power electronics
+        - Sensor
+        - MCU / SBC / Controller
+        - Radio / Connectivity
+        - Mechanical hardware
+        - Bearing / Wheel / Drivetrain
+        - Charger / Power supply
+        - Cutting component
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose in the system
+      placeholder: Rear drive motor for 2-wheel differential drive.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: candidates
+    attributes:
+      label: Candidate parts / suppliers
+      placeholder: |
+        - Vendor A, Part 123
+        - Vendor B, Part XYZ
+        - Used reference component from old prototype
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: driving-needs
+    attributes:
+      label: Driving requirements and constraints
+      placeholder: |
+        - Torque >= ...
+        - Voltage range ...
+        - Mass <= ...
+        - IP rating ...
+        - Cost target ...
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Comparison criteria
+      description: State how the options will be compared.
+      placeholder: Performance, efficiency, cost, availability, lead time, mass, package size, integration effort, reliability, certification, etc.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: result
+    attributes:
+      label: Evaluation result
+      description: Summarize the comparison once available.
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision and follow-up
+      description: Selected part, rejected parts, and next step.
+      placeholder: Select Vendor B Part XYZ and create implementation task for bracket and driver integration.
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Related links
+      placeholder: |
+        Requirement: #7
+        Experiment: #19
+        Change request: #43
+      render: markdown
+    validations:
+      required: false

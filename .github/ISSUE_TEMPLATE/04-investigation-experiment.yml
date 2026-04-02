@@ -1,0 +1,116 @@
+name: Investigation / Experiment
+description: Track learning work, prototypes, comparisons, or experiments before locking a design.
+title: "[EXP] "
+labels: ["investigation-experiment"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when the goal is to learn, compare, or reduce uncertainty.
+        Examples: trying motor control algorithms, connectivity range measurements, mowing torque experiments, battery runtime exploration, or prototype geometry checks.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-checks
+      options:
+        - label: I defined the question or hypothesis.
+          required: true
+        - label: I defined what decision this experiment should inform.
+          required: true
+
+  - type: dropdown
+    id: experiment-type
+    attributes:
+      label: Experiment type
+      options:
+        - Feasibility study
+        - Bench experiment
+        - A/B comparison
+        - Prototype trial
+        - Parameter tuning
+        - Field experiment
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Subsystem
+      options:
+        - System
+        - Chassis
+        - Drive
+        - Cutting system
+        - Power / Battery
+        - Charging / Solar
+        - Control / Firmware
+        - Connectivity / Telemetry
+        - Sensors / Safety
+        - Manufacturing / Assembly
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or hypothesis
+      placeholder: Which motor + gearbox combination gives enough wheel torque while keeping current draw acceptable?
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Options under evaluation
+      placeholder: |
+        - Motor A + gearbox 30:1
+        - Motor B direct drive
+        - Control algorithm PID
+        - Control algorithm bang-bang
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: method
+    attributes:
+      label: Method
+      description: How will the experiment be run and compared?
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metrics and decision criteria
+      description: What measurements determine success?
+      placeholder: Torque, current draw, temperature rise, slip, tracking error, packet loss, cost, etc.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected output
+      description: What decision or next action should come out of this?
+      placeholder: Select one motor concept for detailed design, reject option B, or create a change request.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Related links
+      placeholder: |
+        Requirement: #9
+        Component evaluation: #18
+        Follow-up task: #27
+      render: markdown
+    validations:
+      required: false

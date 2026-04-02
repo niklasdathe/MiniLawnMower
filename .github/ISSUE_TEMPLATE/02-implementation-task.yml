@@ -1,0 +1,122 @@
+name: Implementation Task
+description: Create a concrete build task for hardware, firmware, software, CAD, wiring, or documentation.
+title: "[TASK] "
+labels: ["implementation-task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for concrete work items that change the product.
+        Examples: motor control firmware, battery mount CAD, wheel encoder board, wiring harness, test jig, or telemetry dashboard.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-checks
+      options:
+        - label: I searched for an existing task or related issue.
+          required: true
+        - label: I linked the driving requirement, bug, experiment, or change request where applicable.
+          required: true
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Subsystem
+      options:
+        - System
+        - Chassis
+        - Drive
+        - Cutting system
+        - Power / Battery
+        - Charging / Solar
+        - Control / Firmware
+        - Connectivity / Telemetry
+        - Sensors / Safety
+        - Manufacturing / Assembly
+        - Documentation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: work-type
+    attributes:
+      label: Work type
+      options:
+        - Hardware
+        - Firmware
+        - Software
+        - CAD / Mechanical
+        - Electrical / Wiring
+        - Documentation
+        - Integration
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What exactly has to be done?
+      placeholder: Implement closed-loop motor PWM control for the left and right drive motors.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: In scope / out of scope
+      placeholder: |
+        In scope:
+        - Add motor driver abstraction
+        - Add PWM output and current limit
+
+        Out of scope:
+        - Path planning
+        - Telemetry dashboard
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      description: What artifacts should exist when this task is done?
+      placeholder: |
+        - Updated CAD or schematic
+        - Source code committed
+        - BOM updated
+        - Test notes attached
+        - Photos / screenshots
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: definition-of-done
+    attributes:
+      label: Definition of done
+      description: State the completion criteria.
+      placeholder: |
+        - Code builds without errors
+        - Bench test passed
+        - Related requirement linked
+        - PR merged
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Linked issues and references
+      description: Link requirements, bugs, experiments, evaluations, or change requests.
+      placeholder: |
+        Requirement: #10
+        Verification test: #21
+        Experiment: #37
+      render: markdown
+    validations:
+      required: false
